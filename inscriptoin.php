@@ -37,7 +37,7 @@
 
                     <div class="card-body">
 
-                        <form action="traitement.php" method="POST">
+                        <form action="code-insertoin.php" method="POST">
 
                             <div class="mb-3">
                                 <label class="form-label">Nom</label>
@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Mot de passe</label>
+                                <label class="form-label">Mdp</label>
                                 <input type="password" name="mot_de_passe" class="form-control"
                                     placeholder="Mot de passe" required>
                             </div>
