@@ -33,7 +33,8 @@
 
     <section class="about section-padding">
         <div class="section-title-wrap d-flex justify-content-end align-items-center mb-4">
-            <h2 class="text-white me-4 mb-0">My Story</h2>
+
+            <h2 class="text-white me-4 mb-0">mon servivce</h2>
 
             <img src="images/happy-bearded-young-man.jpg" class="avatar-image img-fluid" alt="">
         </div>
