@@ -1,0 +1,93 @@
+/*login.css*/
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f0f8f5;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    color: red !important;
+}
+
+.card {
+    border-radius: 1rem;
+}
+
+.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40,167,69,0.5);
+}
+
+.btn-success {
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.card-header h4 {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+a.text-link {
+    color: #28a745;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a.text-link:hover {
+    text-decoration: underline;
+}
+/*inscription.css*/
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f0f8f5;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    color: red !important;
+}
+
+.card {
+    border-radius: 1rem;
+}
+
+.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40,167,69,0.5);
+}
+
+.btn-success {
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.card-header h4 {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+a.text-link {
+    color: #28a745;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a.text-link:hover {
+    text-decoration: underline;
+}
+
+
+
