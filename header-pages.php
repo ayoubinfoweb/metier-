@@ -1,9 +1,8 @@
-
-    <section class="preloader">
-        <div class="spinner">
-            <span class="spinner-rotate"></span>
-        </div>
-    </section> 
+<section class="preloader">
+    <div class="spinner">
+        <span class="spinner-rotate"></span>
+    </div>
+</section>
 <!-- section header-->
 <nav class="navbar navbar-expand-lg bg-success">
     <div class="container">
@@ -41,6 +40,8 @@
                 <li class="nav-item">
                     <a class="nav-link click-scroll" href="contact.php">Contact</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="srv-remplire.php">Ajouter un service</a>
             </ul>
         </div>
 

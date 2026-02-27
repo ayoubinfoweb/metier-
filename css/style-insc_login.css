@@ -89,5 +89,16 @@ a.text-link:hover {
     text-decoration: underline;
 }
 
+/* Styles spécifiques pour la page d'ajout de service */
+.card {
+    border-radius: 15px;
+}
 
+.btn-success {
+    background-color: #198754;
+    border: none;
+}
 
+.btn-success:hover {
+    background-color: #146c43;
+}

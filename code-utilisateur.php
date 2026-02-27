@@ -13,7 +13,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_stmt_bind_param($stmt, "sssss", $nom, $prenom, $email, $mot_de_passe, $role);
 
     if (mysqli_stmt_execute($stmt)) {
-       echo "<script>alert('Inscription réussie !'); window.location.href='login.php';</script>";
+        if ($role === 'client') {
+           echo "<script>alert('Inscription réussie !'); window.location.href='login.php';</script>";
+        } elseif ($role === 'artisan') {
+            echo "<script>alert('Inscription réussie !'); window.location.href='artisan.php';</script>";
+        } elseif ($role === 'admin') {
+            echo "<script>alert('Inscription réussie !'); window.location.href='login.php';</script>";
+        }
     } else {
         echo "Erreur : " . mysqli_error($conn);
     }

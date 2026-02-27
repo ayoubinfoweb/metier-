@@ -30,7 +30,7 @@
         </div>
     </section>
     <?php include 'header-pages.php'; ?>
-    <section class="services section-padding" >
+    <section class="services section-padding">
         <div class="container">
             <div class="row">
 
@@ -41,21 +41,19 @@
 
                         <h2 class="text-white ms-4 mb-0">services</h2>
                     </div>
-                      <form action="" method="post">
                     <div class="row pt-lg-5">
                         <div class="col-lg-6 col-12">
                             <div class="services-thumb">
                                 <div class="d-flex flex-wrap align-items-center border-bottom mb-4 pb-3">
-                                    <h3 class="mb-0">Websites</h3>
+                                        <h3 class="mb-0"><?php echo $nom_service['nom_service']; ?></h3>
 
-                                    <div class="services-price-wrap ms-auto">
-                                        <p class="services-price-text mb-0">$2,400</p>
-                                        <div class="services-price-overlay"></div>
-                                    </div>
+                                        <div class="services-price-wrap ms-auto">
+                                            <p class="services-price-text mb-0"><?php echo $prix['prix']; ?></p>
+                                            <div class="services-price-overlay"></div>
+                                        </div>
                                 </div>
 
-                                <p>You may want to explore Too CSS for great collection of free HTML CSS templates.
-                                </p>
+                                <?php echo "<p>" . substr($description['description'], 0, 100) . "...</p>"; ?>
 
                                 <a href='srv-demande.php' class="custom-btn custom-border-btn btn mt-3">Discover
                                     More</a>

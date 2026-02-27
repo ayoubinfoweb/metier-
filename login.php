@@ -37,7 +37,7 @@
 
                     <div class="card-body">
 
-                        <form action="login.php" method="POST">
+                        <form action="code_login.php" method="POST">
 
                             <div class="mb-3">
                                 <label class="form-label">Email</label>

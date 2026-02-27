@@ -29,7 +29,7 @@
                     <a class="nav-link click-scroll" href="categorie.php">categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="inscriptoin.php">inscription</a>
+                    <a class="nav-link click-scroll" href="utilisateur.php">inscription</a>
                 </li>
 
                 <li class="nav-item">
@@ -37,6 +37,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link click-scroll" href="contact.php">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="srv-remplire.php">Ajouter un service</a>
                 </li>
             </ul>
         </div>
