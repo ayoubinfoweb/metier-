@@ -1,10 +1,11 @@
 <?php
+session_start();
 include 'connexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $utilisateur_id = $_POST['utilisateur_id']; // IMPORTANT
-    $metier_id = $_POST['metier']; // ton select metier
+    $utilisateur_id = $_POST['utilisateur_id'];
+    $metier_id = $_POST['metier_id'];
     $telephone = $_POST['telephone'];
     $adresse = $_POST['adresse'];
     $ville = $_POST['ville'];

@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 'artisan') {
+    echo '<script>window.location.href = "index.php"</script>';
+    exit();
+} ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -32,7 +39,9 @@
     <div class="container mt-5">
         <div class="card shadow p-4">
             <h3 class="text-center text-success mb-4">Ajouter un Service</h3>
-
+            <li class="nav-item">
+                <a class="nav-link click-scroll" href="srv-remplire.php">Ajouter un service</a>
+            </li>
             <form action="code-remplire.php" method="POST" enctype="multipart/form-data">
 
                 <!-- titre -->
@@ -62,7 +71,6 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-success w-50">Ajouter</button>
                 </div>
-
             </form>
         </div>
     </div>

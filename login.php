@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
+
 
 <head>
     <meta charset="UTF-8">
@@ -56,7 +55,7 @@
                             </div>
 
                             <p class="mt-3 text-center">Pas encore de compte ?
-                                <a href="inscription.php" class="text-link">Créer un compte</a>
+                                <a href="utilisateur.php" class="text-link">Créer un compte</a>
                             </p>
 
                         </form>

@@ -1,9 +1,11 @@
-
-    <section class="preloader">
-        <div class="spinner">
-            <span class="spinner-rotate"></span>
-        </div>
-    </section> 
+<?php
+session_start();
+?>
+<section class="preloader">
+    <div class="spinner">
+        <span class="spinner-rotate"></span>
+    </div>
+</section>
 <!-- section header-->
 <nav class="navbar navbar-expand-lg ">
     <div class="container">
@@ -38,9 +40,17 @@
                 <li class="nav-item">
                     <a class="nav-link click-scroll" href="contact.php">Contact</a>
                 </li>
+                <?php if (  isset($_SESSION['email']) && $_SESSION['role'] =='artisan') { ?>
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="artisan.php">Ajouter un service</a>
+                    </li>
+                     <?php } ?>
+                     <?php if (isset($_SESSION['email'])) { ?>
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="srv-remplire.php">Ajouter un service</a>
+                    <a class="nav-link click-scroll" href="logout.php">Déconnexion</a>
                 </li>
+            <?php } ?>
+
             </ul>
         </div>
 

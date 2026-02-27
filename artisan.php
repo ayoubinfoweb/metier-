@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 
@@ -43,8 +46,7 @@
                                 <input type="tel" name="telephone" class="form-control" required>
                             </div>
                             <div>
-                            <input type="hidden" name="utilisateur_id" value="1">
-                            <input type="hidden" name="metier" value="2">
+                            <input type="hidden" name="utilisateur_id" value="<?php echo $_SESSION['utilisateur_id']; ?>">
                             </div>
 
                             <div class="mb-3">
@@ -57,45 +59,45 @@
                             </div>
 
                             <div class="mb-3">
-                                        <select name="metier" class="form-select" required>
-                                            <option value="">-- Choisir un métier --</option>
-                                            <?php
-                                            // Récupérer tous les métiers avec leur catégorie
-$stmt = $conn->query("
-    SELECT m.id, m.nom AS nom_metier, c.nom AS nom_categorie
+                                <select name="metier_id" class="form-select" required>
+                                    <option value="">-- Choisir un métier --</option>
+                                    <?php
+                                    // Récupérer tous les métiers avec leur catégorie
+                                    $stmt = $conn->query("
+    SELECT m.id, m.nom_metier, c.nom_categorie
     FROM metiers m
     JOIN categories c ON m.categorie_id = c.id
-    ORDER BY c.nom, m.nom
+    ORDER BY c.nom_categorie, m.nom_metier
 ");
 
-$current_cat = '';
-while ($row = $stmt->fetch_assoc()) {
-    // Créer un optgroup par catégorie
-    if ($current_cat != $row['nom_categorie']) {
-        if ($current_cat != '')
-            echo '</optgroup>'; // fermer le précédent
-        echo '<optgroup label="' . htmlspecialchars($row['nom_categorie']) . '">';
-        $current_cat = $row['nom_categorie'];
-    }
-    echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['nom_metier']) . '</option>';
-}
-if ($current_cat != '')
-    echo '</optgroup>'; // fermer le dernier optgroup
-?>
-                                            
-                                        </select>
-                                    </div>
+                                    $current_cat = '';
+                                    while ($row = $stmt->fetch_assoc()) {
+                                        // Créer un optgroup par catégorie
+                                        if ($current_cat != $row['nom_categorie']) {
+                                            if ($current_cat != '')
+                                                echo '</optgroup>'; // fermer le précédent
+                                            echo '<optgroup label="' . htmlspecialchars($row['nom_categorie']) . '">';
+                                            $current_cat = $row['nom_categorie'];
+                                        }
+                                        echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['nom_metier']) . '</option>';
+                                    }
+                                    if ($current_cat != '')
+                                        echo '</optgroup>'; // fermer le dernier optgroup
+                                    ?>
+
+                                </select>
                             </div>
-
-                            <button type="submit" class="btn btn-primary w-100">
-                                Envoyer
-                            </button>
-
-                        </form>
                     </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Envoyer
+                    </button>
+
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!-- JAVASCRIPT FILES -->
     <script src="js/jquery.min.js"></script>

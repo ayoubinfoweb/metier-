@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'connexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -13,15 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_stmt_bind_param($stmt, "sssss", $nom, $prenom, $email, $mot_de_passe, $role);
 
     if (mysqli_stmt_execute($stmt)) {
-        if ($role === 'client') {
-           echo "<script>alert('Inscription réussie !'); window.location.href='login.php';</script>";
-        } elseif ($role === 'artisan') {
+        if ( $_SESSION['role'] == 'artisan') {
             echo "<script>alert('Inscription réussie !'); window.location.href='artisan.php';</script>";
-        } elseif ($role === 'admin') {
+        } else {
             echo "<script>alert('Inscription réussie !'); window.location.href='login.php';</script>";
         }
-    } else {
-        echo "Erreur : " . mysqli_error($conn);
     }
 
     mysqli_stmt_close($stmt);
