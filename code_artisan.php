@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (mysqli_stmt_execute($stmt)) {
         echo "<script>alert('Artisan ajouté avec succès !'); window.location.href='srv-remplire.php';</script>";
+        $_SESSION['artisan_id'] = mysqli_insert_id($conn);
     } else {
         echo "Erreur : " . mysqli_error($conn);
     }

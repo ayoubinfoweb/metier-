@@ -5,6 +5,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'artisan') {
     exit();
 } ?>
 
+
 <!doctype html>
 <html lang="en">
 
@@ -39,11 +40,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'artisan') {
     <div class="container mt-5">
         <div class="card shadow p-4">
             <h3 class="text-center text-success mb-4">Ajouter un Service</h3>
-            <li class="nav-item">
-                <a class="nav-link click-scroll" href="srv-remplire.php">Ajouter un service</a>
-            </li>
-            <form action="code-remplire.php" method="POST" enctype="multipart/form-data">
 
+            <form action="code-remplire.php" method="POST" enctype="multipart/form-data">
                 <!-- titre -->
                 <div class="mb-3">
                     <label class="form-label text-success">titre</label>
@@ -71,6 +69,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'artisan') {
                 <div class="text-center">
                     <button type="submit" class="btn btn-success w-50">Ajouter</button>
                 </div>
+
             </form>
         </div>
     </div>
