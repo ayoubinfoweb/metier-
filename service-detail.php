@@ -1,9 +1,19 @@
 <?php
 include 'connexion.php';
 
-// Requête pour récupérer les services
-$sql = "SELECT * FROM services";
-$result = mysqli_query($conn, $sql);
+if (isset($_GET['metier_id'])) {
+    $metier_id = $_GET['metier_id'];
+
+    $stmt = $conn->prepare("
+        SELECT s.*, a.id AS artisan_id
+        FROM services s
+        JOIN artisans a ON s.artisan_id = a.id
+        WHERE a.metier_id = ?
+    ");
+    $stmt->bind_param("i", $metier_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -48,33 +58,34 @@ $result = mysqli_query($conn, $sql);
                     </div>
 
                     <div class="row pt-lg-4">
-                        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-                            <div class="col-lg-6 col-12">
-                                <div class="services-thumb">
-                                    <div class="d-flex flex-wrap align-items-center border-bottom mb-4 pb-3">
-                                        <h3 class="mb-0"><?php echo $row['titre']; ?></h3>
+            <?php foreach ($result as $service) { ?>
+                <div class="col-lg-6 col-12">
+                    <div class="services-thumb">
+                        <div class="d-flex flex-wrap align-items-center border-bottom mb-4 pb-3">
+                            <h3 class="mb-0"><?php echo $service['titre']; ?></h3>
 
-                                        <div class="services-price-wrap ms-auto">
-                                            <p class="services-price-text mb-0"><?php echo $row['prix']; ?> DH</p>
-                                            <div class="services-price-overlay"></div>
-                                        </div>
-                                    </div>
-
-                                    <?php echo "<p>" . substr($row['description'], 0, 100) . "...</p>"; ?>
-
-                                    <a href='srv-demande.php' class="custom-btn custom-border-btn btn mt-3">Discover
-                                        More</a>
-
-                                    <div class="services-icon-wrap d-flex justify-content-center align-items-center">
-                                        <i class="services-icon bi-globe"></i>
-                                    </div>
-                                </div>
+                            <div class="services-price-wrap ms-auto">
+                                <p class="services-price-text mb-0"><?php echo $service['prix']; ?> DH</p>
+                                <div class="services-price-overlay"></div>
                             </div>
-                        <?php } ?>
+                        </div>
+
+                        <?php echo "<p>" . substr($service['description'], 0, 100) . "...</p>"; ?>
+
+                        <a href='srv-demande.php' class="custom-btn custom-border-btn btn mt-3">Discover
+                            More</a>
+
+                        <div class="services-icon-wrap d-flex justify-content-center align-items-center">
+                            <i class="services-icon bi-globe"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    <?php } ?>
+    </div>
+    </div>
+</section>
     </section>
 <?php include 'footer.php'; ?>
 

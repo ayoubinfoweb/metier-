@@ -24,30 +24,31 @@ session_start();
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="service.php">services</a>
+                    <a class="nav-link " href="service.php">services</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="categorie.php">categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link click-scroll" href="utilisateur.php">inscription</a>
+                    <a class="nav-link " href="categorie.php">categories</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="login.php">login</a>
+                    <a class="nav-link " href="utilisateur.php">inscription</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link " href="login.php">login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="contact.php">Contact</a>
+                    <a class="nav-link " href="contact.php">Contact</a>
                 </li>
                 <?php if (  isset($_SESSION['email']) && $_SESSION['role'] =='artisan') { ?>
                     <li class="nav-item">
-                        <a class="nav-link click-scroll" href="artisan.php">Ajouter un service</a>
+                        <a class="nav-link " href="artisan.php">Ajouter un service</a>
                     </li>
                      <?php } ?>
                      <?php if (isset($_SESSION['email'])) { ?>
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="logout.php">Déconnexion</a>
+                    <a class="nav-link" href="logout.php">Déconnexion</a>
                 </li>
             <?php } ?>
 

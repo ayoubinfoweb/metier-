@@ -1,19 +1,16 @@
 <?php
-
 include 'connexion.php';
-$sql = "SELECT * FROM categories";
-$result = $conn->query($sql);
 
+if (isset($_GET['categorie_id'])) {
 
-if (isset($_POST['voir_metier'])) {
-    $categorie = $_POST['id'];
-    $sql_metiers = "SELECT * FROM metiers WHERE categorie_id = " . $categorie . "";
-    $metieres = $conn->query($sql_metiers);
-    echo "<script> window.location.href = 'metiers.php'</script>";
+    $categorie_id = $_GET['categorie_id'];
+
+    $stmt = $conn->prepare("SELECT * FROM metiers WHERE categorie_id = ?");
+    $stmt->bind_param("i", $categorie_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 }
-
 ?>
-
 <!doctype html>
 <html lang="en">
 
@@ -50,27 +47,22 @@ if (isset($_POST['voir_metier'])) {
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-12 ms-auto">
                     <div class="section-title-wrap d-flex justify-content-center align-items-center mb-4">
-                        <h2 class="text-white ms-4 mb-0">categories</h2>
+                        <h2 class="text-white ms-4 mb-0">metiers</h2>
                     </div>
                 </div>
 
                 <div class="clearfix"></div>
+                <?php foreach ($result as $metier) { ?>
 
-
-
-                <?php foreach ($result as $categorie) { ?>
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="projects-thumb">
                             <div class="projects-info">
-                                <form action="" method="post">
-                                    <h3 class="projects-title"><?php echo $categorie['nom_categorie']; ?></h3>
+                                <h3 class="projects-title"> <?php echo $metier['nom_metier']; ?></h3>
                             </div>
-                            <a href="metiers.php?categorie_id=<?php echo $categorie['id']; ?>" class="btn btn-primary">
-                                Voir les métiers
+                            <a href="service-detail.php?metier_id=<?php echo $metier['id']; ?>" class="btn btn-success">
+                                Voir services
                             </a>
                         </div>
-                        </form>
-
                     </div>
                 <?php } ?>
             </div>

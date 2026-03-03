@@ -1124,7 +1124,7 @@ strong {
 
   .contact-info {
     border-radius: 0 0 var(--border-radius-small) var(--border-radius-small);
-    padding: 40px 30px;
+    padding:40px 30px;
   }
 
   .contact-info-border-start {

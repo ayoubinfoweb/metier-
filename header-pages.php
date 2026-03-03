@@ -22,38 +22,40 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-lg-5">
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="index.php">Home</a>
+                    <a class="nav-link " href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="service.php">services</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="service.php">services</a>
+                    <a class="nav-link" href="categorie.php">categories</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="categorie.php">categories</a>
+                    <a class="nav-link" href="utilisateur.php">inscription</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="inscriptoin.php">inscription</a>
+                    <a class="nav-link " href="login.php">login</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="login.php">login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link click-scroll" href="contact.php">Contact</a>
+                    <a class="nav-link " href="contact.php">Contact</a>
                 </li>
 
                 <?php if (isset($_SESSION['email']) && $_SESSION['role'] == 'artisan') { ?>
                     <li class="nav-item">
-                        <a class="nav-link click-scroll" href="artisan.php">Ajouter un service</a>
+                        <a class="nav-link" href="artisan.php">Ajouter un service</a>
                     </li>
+
                 </ul>
+
             <?php } ?>
             <?php if (isset($_SESSION['email'])) { ?>
-            <li class="nav-item">
-                <a class="nav-link click-scroll" href="logout.php">Déconnexion</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Déconnexion</a>
+                </li>
             <?php } ?>
 
         </div>
