@@ -55,22 +55,23 @@ if (isset($_POST['voir_metier'])) {
                 </div>
 
                 <div class="clearfix"></div>
-
-
-
                 <?php foreach ($result as $categorie) { ?>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <div class="projects-thumb">
+                    <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                        <div class="projects-thumb w-100 d-flex flex-column">
                             <div class="projects-info">
                                 <form action="" method="post">
-                                    <h3 class="projects-title"><?php echo $categorie['nom_categorie']; ?></h3>
-                            </div>
-                            <a href="metiers.php?categorie_id=<?php echo $categorie['id']; ?>" class="btn btn-primary">
-                                Voir les métiers
-                            </a>
-                        </div>
-                        </form>
+                                    <div class="projects-info text-center">
+                                        <h3 class="projects-title"><?php echo $categorie['nom_categorie']; ?></h3>
 
+                                        <a href="metiers.php?categorie_id=<?php echo $categorie['id']; ?>"
+                                            class="custom-btn mt-auto">
+                                            Voir les métiers
+                                        </a>
+                                    </div>
+                            </div>
+                            </form>
+
+                        </div>
                     </div>
                 <?php } ?>
             </div>

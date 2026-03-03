@@ -62,6 +62,7 @@ if (isset($_GET['metier_id'])) {
                 <div class="col-lg-6 col-12">
                     <div class="services-thumb">
                         <div class="d-flex flex-wrap align-items-center border-bottom mb-4 pb-3">
+                            
                             <h3 class="mb-0"><?php echo $service['titre']; ?></h3>
 
                             <div class="services-price-wrap ms-auto">
@@ -72,7 +73,7 @@ if (isset($_GET['metier_id'])) {
 
                         <?php echo "<p>" . substr($service['description'], 0, 100) . "...</p>"; ?>
 
-                        <a href='srv-demande.php' class="custom-btn custom-border-btn btn mt-3">Discover
+                        <a href='srv-demande.php?artisan_id=<?php echo $service['artisan_id']; ?>' class="custom-btn custom-border-btn btn mt-3">Discover
                             More</a>
 
                         <div class="services-icon-wrap d-flex justify-content-center align-items-center">

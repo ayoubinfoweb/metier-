@@ -24,10 +24,6 @@ session_start();
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link " href="service.php">services</a>
-                </li>
-
-                <li class="nav-item">
                     <a class="nav-link " href="categorie.php">categories</a>
                 </li>
 
@@ -41,17 +37,17 @@ session_start();
                 <li class="nav-item">
                     <a class="nav-link " href="contact.php">Contact</a>
                 </li>
-                <?php if (  isset($_SESSION['email']) && $_SESSION['role'] =='artisan') { ?>
+               
                     <li class="nav-item">
+                         <?php if (  isset($_SESSION['email']) && $_SESSION['role'] =='artisan') { ?>
                         <a class="nav-link " href="artisan.php">Ajouter un service</a>
+                        <?php } ?>
                     </li>
-                     <?php } ?>
-                     <?php if (isset($_SESSION['email'])) { ?>
                 <li class="nav-item">
+                    <?php if (isset($_SESSION['email'])) { ?>
                     <a class="nav-link" href="logout.php">Déconnexion</a>
+                    <?php } ?>
                 </li>
-            <?php } ?>
-
             </ul>
         </div>
 
