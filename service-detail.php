@@ -73,7 +73,7 @@ if (isset($_GET['metier_id'])) {
 
                         <?php echo "<p>" . substr($service['description'], 0, 100) . "...</p>"; ?>
 
-                        <a href='srv-demande.php?artisan_id=<?php echo $service['artisan_id']; ?>' class="custom-btn custom-border-btn btn mt-3">Discover
+                        <a href='srv-demande.php?artisan_id=<?php echo $service['artisan_id'];?>' class="custom-btn custom-border-btn btn mt-3">Discover
                             More</a>
 
                         <div class="services-icon-wrap d-flex justify-content-center align-items-center">

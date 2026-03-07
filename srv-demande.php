@@ -1,4 +1,5 @@
 <?php
+include 'header-pages.php';
 include 'connexion.php';
 
 if (isset($_GET['artisan_id'])) {
@@ -10,6 +11,7 @@ if (isset($_GET['artisan_id'])) {
             utilisateurs.nom,
             utilisateurs.prenom,
             utilisateurs.email,
+            utilisateurs.role,
             artisans.telephone,
             artisans.adresse,
             artisans.ville
@@ -25,16 +27,14 @@ if (isset($_GET['artisan_id'])) {
     $artisan = $result->fetch_assoc(); // 🔥 une seule ligne
 
     $stmt1 = $conn->prepare("
-        SELECT titre, description, prix,image
+        SELECT titre, description, prix,image ,id
         FROM services
         WHERE artisan_id = ?
     ");
     $stmt1->bind_param("i", $artisan_id);
     $stmt1->execute();
     $result1 = $stmt1->get_result();
-    $services = $result1 ->fetch_assoc(); // 🔥 une seule ligne
-
-
+    $services = $result1->fetch_assoc(); // 🔥 une seule ligne
 }
 
 ?>
@@ -68,7 +68,6 @@ if (isset($_GET['artisan_id'])) {
 </head>
 
 <body>
-    <?php include 'header-pages.php'; ?>
 
     <!--section services-->
 
@@ -91,12 +90,12 @@ if (isset($_GET['artisan_id'])) {
                             </span>
                         </h3>
                         <p>
-                            <p>adresse : <?php  echo $artisan['adresse']; ?></p>
-                            <p>ville : <?php  echo $artisan['ville']; ?></p>
-                            <p>email : <?php echo $artisan['email']; ?></p>
-                            <br>
-                            <br>
-                            <p>description : </p><?php echo $services['description']; ?>
+                        <p>adresse : <?php echo $artisan['adresse']; ?></p>
+                        <p>ville : <?php echo $artisan['ville']; ?></p>
+                        <p>email : <?php echo $artisan['email']; ?></p>
+                        <br>
+                        <br>
+                        <p>description : </p><?php echo $services['description']; ?>
                         </p>
                     </div>
                 </div>
@@ -133,10 +132,22 @@ if (isset($_GET['artisan_id'])) {
                 </div>
             </div>
         </div>
+        <div class="text-center">
+            <?php if (isset($_SESSION['email']) && $_SESSION['role'] === 'client') { ?>
+                <a href="Dconfermer.php?id=<?php echo $services['id']; ?>" class=" text-center custom-btn mt-auto">
+                    Demander ce service
+                </a>
+            <?php } if (!isset($_SESSION['email'])) {
+                echo "<script>alert(\"Veuillez vous connecter pour demander ce service.\"); window.location.href = 'login.php';</script>";
+            }
+             ?>
+        </div>
+
     </section>
-    <div class="text-center">
-        <input type="submit" value="demande" class="btn btn-primary center btn btn-success">
-    </div>
+
+
+
+
 
 
     <!-- JAVASCRIPT FILES -->
@@ -149,5 +160,10 @@ if (isset($_GET['artisan_id'])) {
     <script src="js/custom.js"></script>
 
 </body>
+<footer>
+    <div class="container">
+        <p class="text-center">&copy; 2023 Mon Site. Tous droits réservés.</p>
+    </div>
+</footer>
 
 </html>
