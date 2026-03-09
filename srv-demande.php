@@ -2,9 +2,9 @@
 include 'header-pages.php';
 include 'connexion.php';
 
-if (isset($_GET['artisan_id'])) {
+if (isset($_GET['id'])) {
 
-    $artisan_id = $_GET['artisan_id'];
+    $artisan_id = $_GET['id'];
 
     $stmt = $conn->prepare("
         SELECT 
@@ -133,14 +133,9 @@ if (isset($_GET['artisan_id'])) {
             </div>
         </div>
         <div class="text-center">
-            <?php if (isset($_SESSION['email']) && $_SESSION['role'] === 'client') { ?>
                 <a href="Dconfermer.php?id=<?php echo $services['id']; ?>" class=" text-center custom-btn mt-auto">
                     Demander ce service
                 </a>
-            <?php } if (!isset($_SESSION['email'])) {
-                echo "<script>alert(\"Veuillez vous connecter pour demander ce service.\"); window.location.href = 'login.php';</script>";
-            }
-             ?>
         </div>
 
     </section>
