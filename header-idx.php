@@ -22,7 +22,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link " href="affichier.php">categories</a>
+                    <a class="nav-link " href="services.php">services</a>
                 </li>
 
                 <li class="nav-item">
@@ -37,7 +37,7 @@
                 </li>
                
                     <li class="nav-item">
-                         <?php if (  isset($_SESSION['email']) && $_SESSION['role'] =='artisan') { ?>
+                         <?php if (isset($_SESSION['email']) && $_SESSION['role'] =='artisan') { ?>
                         <a class="nav-link " href="artisan.php">Ajouter un service</a>
                         <?php } ?>
                     </li>

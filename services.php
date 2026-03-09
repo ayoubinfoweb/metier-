@@ -1,4 +1,4 @@
-<?php
+<?php 
 include 'connexion.php';
 
 if (isset($_GET['metier_id'])) {
@@ -69,19 +69,13 @@ WHERE a.metier_id = '$metier_id'
                     <div class="container mt-5">
                         <div class="row justify-content-center">
                             <div class="col-md-6">
-                                <div class="card shadow">
-                                    <div class="card-header text-center bg-success text-white">
-                                        <h4>Choisir un service</h4>
-                                    </div>
-
-                                    <form action="service.php" method="GET">
-
+                                    <form action="affichier.php" method="GET">
                                         <div class="mb-3">
                                             <select name="metier_id" class="form-select" required
                                                 onchange="this.form.submit()">
 
                                                 <option value="">-- Choisir un métier --</option>
-                                                <option value="0" <?php echo (isset($_GET['metier_id']) && $_GET['metier_id'] == '0') ? 'selected' : ''; ?>>Tous les métiers</option>
+                                                <option value="0" <?php echo (isset($_GET['metier_id']) && $_GET['metier_id'] == '0') ? 'selected' : ''; ?>>Tous les services</option>
                                                 <?php
                                                 $stmt = $conn->query("
 SELECT m.id, m.nom_metier, c.nom_categorie
@@ -158,3 +152,5 @@ ORDER BY c.nom_categorie, m.nom_metier
 </body>
 
 </html>
+
+
