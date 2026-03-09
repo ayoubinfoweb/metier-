@@ -22,14 +22,6 @@ WHERE a.metier_id = '$metier_id'
     }
 
     $result = mysqli_query($conn, $sql);
-
-    // Convertir en tableau pour foreach
-    $services = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $services[] = $row;
-    }
-} else {
-    $services = [];
 }
 
 ?>
@@ -125,8 +117,7 @@ ORDER BY c.nom_categorie, m.nom_metier
                         </div>
                     </div>
                     <div class="row pt-lg-4">
-                        <?php if (!empty($services)) : ?>
-                            <?php foreach ($services as $service) : ?>
+                        <?php if (isset($result)) { while ($service = mysqli_fetch_assoc($result)) { ?>
                             <div class="col-lg-6 col-12">
                                 <div class="services-thumb">
                                     <div class="d-flex flex-wrap align-items-center border-bottom mb-4 pb-3">
@@ -138,21 +129,17 @@ ORDER BY c.nom_categorie, m.nom_metier
                                         </div>
                                     </div>
 
-                                    <p><?php echo substr($service['description'], 0, 100); ?>...</p>
+                                    <?php echo "<p>" . substr($service['description'], 0, 100) . "...</p>"; ?>
 
-                                    <a href='srv-demande.php' class="custom-btn custom-border-btn btn mt-3">Discover More</a>
+                                    <a href='srv-demande.php' class="custom-btn custom-border-btn btn mt-3">Discover
+                                        More</a>
 
                                     <div class="services-icon-wrap d-flex justify-content-center align-items-center">
                                         <i class="services-icon bi-globe"></i>
                                     </div>
                                 </div>
                             </div>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <div class="col-12 text-center text-white mt-4">
-                                <p>Aucun service trouvé pour ce métier.</p>
-                            </div>
-                        <?php endif; ?>
+                        <?php } } ?>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+
 <section class="preloader">
     <div class="spinner">
         <span class="spinner-rotate"></span>
@@ -24,9 +22,9 @@ session_start();
                 <li class="nav-item">
                     <a class="nav-link " href="index.php">Home</a>
                 </li>
-                
+
                 <li class="nav-item">
-                    <a class="nav-link" href="categorie.php">categories</a>
+                    <a class="nav-link" href="affichier.php">categories</a>
                 </li>
 
                 <li class="nav-item">

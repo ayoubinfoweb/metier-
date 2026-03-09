@@ -59,7 +59,7 @@ if (isset($_GET['categorie_id'])) {
                             <div class="projects-info">
                                 <h3 class="projects-title"> <?php echo $metier['nom_metier']; ?></h3>
                             </div>
-                            <a href="service-detail.php?metier_id=<?php echo $metier['id']; ?>" class=" text-center custom-btn mt-auto">
+                            <a href="service-detail.php?metier_id=<?php  echo $metier['id']; ?>" class=" text-center custom-btn mt-auto">
                                 Voir services
                             </a>
                         </div>
