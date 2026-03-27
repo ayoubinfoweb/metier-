@@ -33,7 +33,6 @@ TemplateMo 578 First Portfolio
 https://templatemo.com/tm-578-first-portfolio
 
 -->
-</head>
 
 <body>
     <!--pour animation de site web -->

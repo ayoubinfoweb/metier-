@@ -1,42 +1,30 @@
 <?php
-session_start();
 include 'connexion.php';
 
-// Traitement du formulaire POST (filtre métier) *
-if (isset($_POST['metier_id'])) {
-    $_SESSION['metier_id'] = $_POST['metier_id'];
-}
 
+if (isset($_GET['metier_id'])) {
 
-// Récupération depuis la session
-$metier_id = $_SESSION['metier_id'] ?? null;
+    $metier_id = $_GET['metier_id'];
 
-if ($metier_id !== null) {
     if ($metier_id == '0') {
+        // Tous les métiers : afficher tous les services sans filtre
         $sql = "
-            SELECT s.*, a.metier_id 
-            FROM services s
-            JOIN artisans a ON s.artisan_id = a.id
-        ";
-        $result = mysqli_query($conn, $sql);
+SELECT s.*, a.metier_id 
+FROM services s
+JOIN artisans a ON s.artisan_id = a.id
+";
     } else {
-        $stmt = $conn->prepare("
-            SELECT s.*,
-            a.metier_id,
-            s.artisan_id
-            FROM services s
-            JOIN artisans a ON s.artisan_id = a.id
-            WHERE a.metier_id = ?
-        ");
-
-        $stmt->bind_param("i", $metier_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-
-
+        $sql = "
+SELECT s.*, a.metier_id 
+FROM services s
+JOIN artisans a ON s.artisan_id = a.id
+WHERE a.metier_id = '$metier_id'
+";
     }
+
+    $result = mysqli_query($conn, $sql);
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -68,6 +56,7 @@ if ($metier_id !== null) {
 
 <body>
     <?php include 'header-pages.php'; ?>
+
     <section class="services section-padding" id="section_3">
         <div class="container">
             <div class="row">
@@ -81,36 +70,35 @@ if ($metier_id !== null) {
                     <div class="container mt-5">
                         <div class="row justify-content-center">
                             <div class="col-md-6">
-                                <!-- Formulaire filtre métier -->
-                                <form action="" method="POST">
+                                <form action="services.php" method="GET">
                                     <div class="mb-3">
                                         <select name="metier_id" class="form-select" required
                                             onchange="this.form.submit()">
 
                                             <option value="">-- Choisir un métier --</option>
-                                            <option value="0" <?php echo (isset($_SESSION['metier_id']) && $_SESSION['metier_id'] == '0') ? 'selected' : ''; ?>>Tous les services
+                                            <option value="0" <?php echo (isset($_GET['metier_id']) && $_GET['metier_id'] == '0') ? 'selected' : ''; ?>>Tous les services
                                             </option>
                                             <?php
-                                            $stmt_metiers = $conn->query("
-                                                SELECT m.id, m.nom_metier, c.nom_categorie
-                                                FROM metiers m
-                                                JOIN categories c ON m.categorie_id = c.id
-                                                ORDER BY c.nom_categorie, m.nom_metier
-                                            ");
+                                            $stmt = $conn->query("
+SELECT m.id, m.nom_metier, c.nom_categorie
+FROM metiers m
+JOIN categories c ON m.categorie_id = c.id
+ORDER BY c.nom_categorie, m.nom_metier
+");
 
                                             $current_cat = '';
 
-                                            while ($row = $stmt_metiers->fetch_assoc()) {
+                                            while ($row = $stmt->fetch_assoc()) {
 
                                                 if ($current_cat != $row['nom_categorie']) {
                                                     if ($current_cat != '')
                                                         echo '</optgroup>';
-                                                    echo '<optgroup label="' . htmlspecialchars($row['nom_categorie']) . '">';
+                                                    echo '<optgroup label="' . $row['nom_categorie'] . '">';
                                                     $current_cat = $row['nom_categorie'];
                                                 }
 
-                                                $selected = (isset($_SESSION['metier_id']) && $_SESSION['metier_id'] == $row['id']) ? 'selected' : '';
-                                                echo '<option value="' . $row['id'] . '" ' . $selected . '>' . htmlspecialchars($row['nom_metier']) . '</option>';
+                                                $selected = (isset($_GET['metier_id']) && $_GET['metier_id'] == $row['id']) ? 'selected' : '';
+                                                echo '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['nom_metier'] . '</option>';
                                             }
 
                                             if ($current_cat != '')
@@ -130,24 +118,20 @@ if ($metier_id !== null) {
                         <div class="col-lg-6 col-12">
                             <div class="services-thumb">
                                 <div class="d-flex flex-wrap align-items-center border-bottom mb-4 pb-3">
-                                    <h3 class="mb-0"><?php echo htmlspecialchars($service['titre']); ?></h3>
+                                    <h3 class="mb-0"><?php echo $service['titre']; ?></h3>
 
                                     <div class="services-price-wrap ms-auto">
-                                        <p class="services-price-text mb-0"><?php echo htmlspecialchars($service['prix']); ?> DH
-                                        </p>
+                                        <p class="services-price-text mb-0"><?php echo $service['prix']; ?> DH</p>
                                         <div class="services-price-overlay"></div>
                                     </div>
                                 </div>
 
-                                <?php echo "<p>" . htmlspecialchars(substr($service['description'], 0, 100)) . "...</p>"; ?>
 
-                                <!-- Form POST → stocke artisan_id en session → redirige via JS -->
-                                <form action="srv-demande.php" method="POST">
-                                    <input type="hidden" name ="artisan_id" value="<?php echo $service['artisan_id']; ?>">
-                                    <button type="submit" class="custom-btn custom-border-btn btn mt-3">
-                                        Discover More
-                                    </button>
-                                </form>
+                                <?php echo "<p>" . substr($service['description'], 0, 100) . "...</p>"; ?>
+
+                                <a href='srv-demande.php?id=<?php echo $service['artisan_id']; ?>'
+                                    class="custom-btn custom-border-btn btn mt-3">Discover
+                                    More</a>
                                 <div class="services-icon-wrap d-flex justify-content-center align-items-center">
                                     <i class="services-icon bi-globe"></i>
                                 </div>
@@ -156,6 +140,8 @@ if ($metier_id !== null) {
                     <?php }
                 } ?>
             </div>
+        </div>
+        </div>
         </div>
     </section>
     <?php include 'footer.php'; ?>
@@ -171,3 +157,5 @@ if ($metier_id !== null) {
 </body>
 
 </html>
+
+

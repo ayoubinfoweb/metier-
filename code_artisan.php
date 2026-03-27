@@ -2,9 +2,8 @@
 session_start();
 include 'connexion.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $utilisateur_id = $_POST['utilisateur_id'];
+    $utilisateur_id =  $_SESSION['utilisateur_id'];
     $metier_id = $_POST['metier_id'];
     $telephone = $_POST['telephone'];
     $adresse = $_POST['adresse'];
@@ -14,17 +13,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES (?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($conn, $sql);
+
     mysqli_stmt_bind_param($stmt, "iisss", $utilisateur_id, $metier_id, $telephone, $adresse, $ville);
 
-    if (mysqli_stmt_execute($stmt)) {
-        echo "<script>alert('Artisan ajouté avec succès !'); window.location.href='srv-remplire.php';</script>";
-        $_SESSION['artisan_id'] = mysqli_insert_id($conn);
+    if (mysqli_stmt_execute($stmt) ) {
+     
+        echo "<script>alert('Artisan ajouté avec succès !'); window.location.href='login.php';</script>";
+    
+
     } else {
-        echo "Erreur : " . mysqli_error($conn);
+        echo "Erreur lors de l'ajout";
     }
 
     mysqli_stmt_close($stmt);
-}
+
 
 mysqli_close($conn);
 ?>

@@ -1,4 +1,4 @@
-
+</head>
 <section class="preloader">
     <div class="spinner">
         <span class="spinner-rotate"></span>
@@ -22,28 +22,49 @@
                 </li>
 
                 <li class="nav-item">
+                     <?php if((!isset($_SESSION['email'])||isset($_SESSION['email'])&& $_SESSION['role'] == 'client')) { ?>
                     <a class="nav-link " href="services.php">services</a>
+                    <?php } ?>
                 </li>
 
                 <li class="nav-item">
+                    <?php if (!isset($_SESSION['email'])) { ?>
                     <a class="nav-link " href="utilisateur.php">inscription</a>
+                    <?php } ?>
                 </li>
 
                 <li class="nav-item">
+                    <?php if (!isset($_SESSION['email'])) { ?>
                     <a class="nav-link " href="login.php">login</a>
+                    <?php } ?>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="contact.php">Contact</a>
                 </li>
-               
-                    <li class="nav-item">
-                         <?php if (isset($_SESSION['email']) && $_SESSION['role'] =='artisan') { ?>
-                        <a class="nav-link " href="artisan.php">Ajouter un service</a>
-                        <?php } ?>
-                    </li>
+
+                <li class="nav-item">
+                    <?php if (isset($_SESSION['email']) && $_SESSION['role'] == 'artisan') { ?>
+                        <a class="nav-link " href="srv-remplire.php">Ajouter un service</a>
+                    <?php } ?>
+                </li>
+                 <li class="nav-item">
+                    <?php if (isset($_SESSION['email']) && !isset($_SESSION['artisan_id'])  && $_SESSION['role'] == 'artisan') { ?>
+                        <a class="nav-link " href="artisan.php">plus de formatoin</a>
+                    <?php } ?>
+                </li>
+                <li class="nav-item">
+                    <?php if (isset($_SESSION['email']) && $_SESSION['role'] == 'artisan') { ?>
+                        <a class="nav-link " href="Aartisan.php">gerer votre demande</a>
+                    <?php } ?>
+                </li>
+                <li class="nav-item">
+                    <?php if (isset($_SESSION['email']) && $_SESSION['role'] == 'client') { ?>
+                        <a class="nav-link " href="Sclient.php">votre demande</a>
+                    <?php } ?>
+                </li>
                 <li class="nav-item">
                     <?php if (isset($_SESSION['email'])) { ?>
-                    <a class="nav-link" href="logout.php">Déconnexion</a>
+                        <a class="nav-link" href="logout.php">Déconnexion</a>
                     <?php } ?>
                 </li>
             </ul>

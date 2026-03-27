@@ -2,42 +2,49 @@
 session_start();
 include 'connexion.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $email = $_POST['email'];
-    $mot_de_passe = $_POST['mot_de_passe'];
+$email = $_POST['email'];
+$mot_de_passe = $_POST['mot_de_passe'];
 
-    // On cherche seulement par email
-    $sql = "SELECT * FROM utilisateurs WHERE email = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $email);
-    mysqli_stmt_execute($stmt);
+$sql = "SELECT * FROM utilisateurs WHERE email = ?";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "s", $email);
+mysqli_stmt_execute($stmt);
 
-    $result = mysqli_stmt_get_result($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
-    if ($row = mysqli_fetch_assoc($result)) {
+if ($row = mysqli_fetch_assoc($result)) {
 
-        // Vérifier le mot de passe hashé
-        if (password_verify($mot_de_passe, $row['mot_de_passe'])) {
+    // Vérifier le mot de passe en clair
+    if ($mot_de_passe == $row['mot_de_passe']) {
+        $_SESSION['utilisateur_id'] = $row['id'];
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['role'] = $row['role'];
+        if ($row['role'] === 'artisan') {
 
-            $_SESSION['utilisateur_id'] = $row['id'];
-            $_SESSION['email'] = $row['email'];
-            $_SESSION['role'] = $row['role']; // IMPORTANT
-            $_SESSION['client_id'] = $row['id']; // IMPORTANT
-            $_SESSION['artisan_id'] = $row['id']; // IMPORTANT
-            echo "<script>window.location.href = 'index.php';</script>";
-            exit();
+            $stmt2 = $conn->prepare("SELECT id FROM artisans WHERE utilisateur_id = ?");
+            $stmt2->bind_param("i", $row['id']);
+            $stmt2->execute();
+            $res2 = $stmt2->get_result();
+            $artisan = $res2->fetch_assoc();
 
-        } else {
-            echo "Mot de passe incorrect.";
+            if ($artisan) {
+                $_SESSION['artisan_id'] = $artisan['id']; 
+
+            }
+
         }
 
+
+        echo "<script>window.location.href = 'index.php';</script>";
+        exit();
     } else {
-        echo "Email introuvable.";
+        echo "Mot de passe incorrect.";
     }
 
-    mysqli_stmt_close($stmt);
+} else {
+    echo "Email introuvable.";
 }
 
-mysqli_close($conn);
+
 ?>

@@ -1,6 +1,8 @@
 <?php
 session_start();
+include 'connexion.php';
 ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -31,7 +33,6 @@ session_start();
 </head>
 
 <body>
-    <?php include 'connexion.php'; ?>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -44,9 +45,6 @@ session_start();
                             <div class="mb-3">
                                 <label class="form-label">Téléphone</label>
                                 <input type="tel" name="telephone" class="form-control" required>
-                            </div>
-                            <div>
-                            <input type="hidden" name="utilisateur_id" value="<?php echo $_SESSION['utilisateur_id']; ?>">
                             </div>
 
                             <div class="mb-3">

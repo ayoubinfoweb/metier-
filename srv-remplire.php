@@ -41,7 +41,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'artisan') {
         <div class="card shadow p-4">
             <h3 class="text-center text-success mb-4">Ajouter un Service</h3>
 
-            <form action="code-remplire.php" method="POST" enctype="multipart/form-data">
+            <form action="ajouter-service.php" method="POST" enctype="multipart/form-data">
                 <!-- titre -->
                 <div class="mb-3">
                     <label class="form-label text-success">titre</label>
