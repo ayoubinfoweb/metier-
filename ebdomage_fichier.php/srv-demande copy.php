@@ -3,6 +3,8 @@ session_start();
 include 'connexion.php';
 
 $artisan_id = $_POST['artisan_id'];
+$_SESSION['artisan_id'] = $artisan_id;
+
 
 $stmt = $conn->prepare("
         SELECT 
@@ -161,7 +163,6 @@ $nb_avis = $stats_avis['nb_avis'] ?? 0;
     <!-- Bouton -->
     <div class="text-center mt-4">
         <form action="Dconfermer.php" method="POST">
-            <?php echo $services['id']?>
             <input type="hidden" name="service_id" value="<?php echo $services['id']; ?>">
             <button type="submit" class="custom-btn mt-auto">
                 Demander ce service
@@ -255,67 +256,111 @@ $nb_avis = $stats_avis['nb_avis'] ?? 0;
 
     </div>
 
-    <!-- Script étoiles + Animation -->
-    <script>
-        // ⭐ Étoiles
-        const stars = document.querySelectorAll('.star');
-        const noteInput = document.getElementById('note-value');
+    <!-- Script étoiles + AJAX -->
+<script>
+    // ⭐ Étoiles
+    const stars = document.querySelectorAll('.star');
+    const noteInput = document.getElementById('note-value');
 
-        if (stars.length > 0) {
-            stars.forEach(star => {
-                star.addEventListener('click', () => {
-                    const val = star.dataset.value;
-                    noteInput.value = val;
-                    stars.forEach(s => {
-                        s.style.color = s.dataset.value <= val ? '#ffc107' : '#6c757d';
-                    });
-                });
-                star.addEventListener('mouseover', () => {
-                    stars.forEach(s => {
-                        s.style.color = s.dataset.value <= star.dataset.value ? '#ffc107' : '#6c757d';
-                    });
-                });
-                star.addEventListener('mouseout', () => {
-                    const current = noteInput.value;
-                    stars.forEach(s => {
-                        s.style.color = current && s.dataset.value <= current ? '#ffc107' : '#6c757d';
-                    });
+    if (stars.length > 0) {
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const val = star.dataset.value;
+                noteInput.value = val;
+                stars.forEach(s => {
+                    s.style.color = s.dataset.value <= val ? '#ffc107' : '#6c757d';
                 });
             });
-        }
-
-        // 🔢 Animation nombres
-        function animerNombre(element, duree = 1500) {
-            const fin     = parseFloat(element.dataset.valeur);
-            const suffix  = element.dataset.suffix || '';
-            const diviser = parseFloat(element.dataset.diviser) || 1;
-
-            // ✅ فحص NaN أو 0
-            if (isNaN(fin) || fin <= 0) {
-                element.textContent = (diviser > 1 ? '0.0' : '0') + suffix;
-                return;
-            }
-
-            let debut = 0;
-            const pas = fin / (duree / 16);
-
-            const timer = setInterval(() => {
-                debut += pas;
-                if (debut >= fin) {
-                    debut = fin;
-                    clearInterval(timer);
-                }
-                const valeur    = debut / diviser;
-                const affichage = diviser > 1 ? valeur.toFixed(1) : Math.floor(valeur);
-                element.textContent = affichage + suffix;
-            }, 16);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.featured-numbers').forEach(el => {
-                animerNombre(el);
+            star.addEventListener('mouseover', () => {
+                stars.forEach(s => {
+                    s.style.color = s.dataset.value <= star.dataset.value ? '#ffc107' : '#6c757d';
+                });
+            });
+            star.addEventListener('mouseout', () => {
+                const current = noteInput.value;
+                stars.forEach(s => {
+                    s.style.color = current && s.dataset.value <= current ? '#ffc107' : '#6c757d';
+                });
             });
         });
+    }
+
+    // 🔢 Animation nombres
+    function animerNombre(element, duree = 1500) {
+        const fin     = parseFloat(element.dataset.valeur);
+        const suffix  = element.dataset.suffix || '';
+        const diviser = parseFloat(element.dataset.diviser) || 1;
+        let debut     = 0;
+        const pas     = fin / (duree / 16);
+
+        const timer = setInterval(() => {
+            debut += pas;
+            if (debut >= fin) {
+                debut = fin;
+                clearInterval(timer);
+            }
+            const valeur = debut / diviser;
+            const affichage = diviser > 1 ? valeur.toFixed(1) : Math.floor(valeur);
+            element.textContent = affichage + suffix;
+        }, 16);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.featured-numbers').forEach(el => {
+            animerNombre(el);
+        });
+    });
+</script>
+
+
+    </script>
+    <script>
+            function animerNombre(element, fin, duree = 1500) {
+                let debut = 0;
+            const pas = fin / (duree / 16);
+
+        const timer = setInterval(() => {
+                debut += pas;
+            if (debut >= fin) {
+                debut = fin;
+            clearInterval(timer);
+            }
+            element.textContent = Math.floor(debut) + (element.dataset.suffix || '');
+        }, 16);
+    }
+
+    // Lancer l'animation au chargement
+    document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('.featured-numbers').forEach(el => {
+                    const valeur = parseInt(el.dataset.valeur);
+                    animerNombre(el, valeur);
+                });
+    });
+    </script>
+    <script>
+            function animerNombre(element, duree = 1500) {
+        const fin      = parseFloat(element.dataset.valeur);
+            const suffix   = element.dataset.suffix || '';
+            const diviser  = parseFloat(element.dataset.diviser) || 1;
+            let debut      = 0;
+            const pas      = fin / (duree / 16);
+
+        const timer = setInterval(() => {
+                debut += pas;
+            if (debut >= fin) {
+                debut = fin;
+            clearInterval(timer);
+            }
+            const affichage = (debut / diviser).toFixed(diviser > 1 ? 1 : 0);
+            element.textContent = affichage + suffix;
+        }, 16);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('.featured-numbers').forEach(el => {
+                    animerNombre(el);
+                });
+    });
     </script>
 
 

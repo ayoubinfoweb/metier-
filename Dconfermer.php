@@ -1,22 +1,26 @@
 <?php
 session_start();
 include 'connexion.php';
- if (!isset($_SESSION['email'])) { 
 
-// Récupération service_id depuis la session
+// ✅ التحقق من تسجيل الدخول أولاً
+if (!isset($_SESSION['email'])) {
+    echo "<script>alert('login ou inscription pour faire la demande !'); window.location.href = 'login.php';</script>";
+    exit;
+}
 
-$_SESSION['service_id'] = $_POST['service_id'];
-$service_id = $_SESSION['service_id'];
-
+// ✅ جلب الخدمة خارج الشرط حتى تكون متاحة في الـ HTML
+$service_id = $_POST['service_id'];
 
 $stmt = $conn->prepare("SELECT * FROM services WHERE id = ?");
 $stmt->bind_param("i", $service_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $service = $result->fetch_assoc();
-echo"<script>alert('login ou inscriptoin pour faire le demende !'); window.location.href = 'login.php';</script>";
 
- } 
+if (!$service) {
+    echo "<script>alert('Service introuvable.'); window.location.href = 'services.php';</script>";
+    exit;
+}
 ?>
 
 
@@ -46,6 +50,8 @@ echo"<script>alert('login ou inscriptoin pour faire le demende !'); window.locat
 
             <form action="code_Dconfermer.php" method="POST">
                 <input type="hidden" name="artisan_id" value="<?php echo $service['artisan_id']; ?>">
+                <input type="hidden" name="service_id" value="<?php echo $service['id']; ?>">
+
                 <div class="text-center mt-4">
                     <button type="submit" class="btn btn-success">
                         Confirmer la demande

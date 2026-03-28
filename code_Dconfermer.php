@@ -5,7 +5,7 @@ include 'connexion.php';
 // Récupération depuis la session
 $client_id  = $_SESSION['utilisateur_id'];
 $artisan_id = $_POST['artisan_id'];
-$service_id = $_SESSION['service_id'];
+$service_id = $_POST['service_id'];
 
 // Stocker client_id dans la session
 $date = date("Y-m-d H:i:s");
